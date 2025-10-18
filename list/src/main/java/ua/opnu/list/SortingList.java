@@ -31,6 +31,11 @@ public class SortingList extends Application {
     // має можливість оповіщати інші об'єкти у тому, що він змінився
     private ObservableList<Student> students;
 
+    // Прапорці напрямку сортування
+    private boolean ascName = true;
+    private boolean ascSurname = true;
+    private boolean ascMark = true;
+
     /*
      * Цей метод запускається, коли запускається ваш додаток.
      * Stage - клас "підмостки". Вважайте, що це щось подібне до вікна додатку.
@@ -128,9 +133,18 @@ public class SortingList extends Application {
             }
         });
 
-        // TODO: Обробка натискання на кнопку "Сортувати за прізвищем"
+        // Обробник кнопки сортування за прізвищем
+        sortByLastNameButton.setOnAction(e -> {
+            students.sort(new SurnameSorter(ascSurname));
+            ascSurname = !ascSurname;
+        });
 
-        // TODO: Обробка натискання на кнопку "Сортувати за оцінкою"
+        // Обробник кнопки сортування за оцінкою
+        sortByMarkButton.setOnAction(e -> {
+            students.sort(new AvgMarkSorter(ascMark));
+            ascMark = !ascMark;
+        });
+
 
         // Створюємо горизонтальний ряд
         HBox hb = new HBox();
